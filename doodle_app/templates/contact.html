@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Doto:wght@100..900&family=Edu+AU+VIC+WA+NT+Pre:wght@400..700&family=Host+Grotesk:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>About Us - Quick, Draw!</title>
+    <style>
+        body {
+            font-family: 'Edu AU VIC WA NT Pre', sans-serif;
+            background-color: white;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Navbar styling */
+        .navbar {
+            width: 25%;
+            margin: 20px auto;
+            background-color: #ffffff;
+            padding: 15px;
+            border-radius: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar ul li {
+            font-size: 1.2rem;
+            padding: 0 15px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .navbar ul li::after {
+            content: '';
+            width: 0;
+            height: 3px;
+            background: #0f0f10;
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            transition: 0.5s;
+        }
+
+        .navbar ul li:hover::after {
+            width: 100%;
+        }
+
+        /* About Us Content */
+        .about-container {
+            text-align: center;
+            margin: 100px 20px 0 20px;
+        }
+
+        .about-header {
+            font-size: 3rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .about-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #555;
+            margin: 0 auto;
+            max-width: 800px;
+        }
+
+        .team-section {
+            margin-top: 50px;
+        }
+
+        .team-header {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .team-profiles {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .profile-card {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 250px;
+        }
+
+        .profile-card img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+        }
+
+        .profile-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            color: #222;
+        }
+
+        .profile-card p {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        button {
+            background-color: #1d03034e;
+            border: none;
+            padding: 15px 30px;
+            font-size: 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 30px;
+        }
+
+        button.cta {
+            background: none;
+        }
+
+        .hover-underline-animation {
+            position: relative;
+            color: black;
+            padding-bottom: 5px;
+        }
+
+        .hover-underline-animation:after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            transform: scaleX(0);
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #161010;
+            transform-origin: bottom right;
+            transition: transform 0.25s ease-out;
+        }
+
+        .cta:hover .hover-underline-animation:after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="navbar">
+        <ul>
+            <li><a href="{% url 'landing_page' %}">Home</a></li>
+            <li><a href="{% url 'ai' %}">Doodle Detection</a></li>
+            <li><a href="{% url 'contact' %}">About Us</a></li>
+        </ul>
+    </div>
+
+    <!-- About Us Content -->
+    <div class="about-container">
+        <h1 class="about-header">About Us</h1>
+        <p class="about-text">
+            Welcome to *Quick, Draw!* – a platform where technology meets creativity. Our mission is to help people 
+            explore the world of artificial intelligence through interactive and engaging doodling experiences. 
+            Using cutting-edge neural networks, we aim to recognize and bring your sketches to life while 
+            making AI accessible and fun for everyone.
+        </p>
+
+        <!-- Team Section -->
+        <div class="team-section">
+            <h2 class="team-header">Meet the Team</h2>
+            <div class="team-profiles">
+                <div class="profile-card">
+                    <!-- <img src="https://via.placeholder.com/100" alt="Team Member"> -->
+                    <h3>Gagan Dwaz Chapa</h3>
+                    <p>AI Devloper</p>
+                </div>
+                <!-- <div class="profile-card">
+                    <img src="https://via.placeholder.com/100" alt="Team Member">
+                    <h3>John Smith</h3>
+                    <p>Creative Designer</p>
+                </div>
+                <div class="profile-card">
+                    <img src="https://via.placeholder.com/100" alt="Team Member">
+                    <h3>Emily Brown</h3>
+                    <p>Project Manager</p>
+                </div> -->
+            </div>
+        </div>
+
+        <!-- Call to Action -->
+        <button class="cta" onclick="window.location.href='{% url 'canvas_page' %}'">
+            <span class="hover-underline-animation"> Start Doodling</span>
+            <svg id="arrow-horizontal" xmlns="http://www.w3.org/2000/svg" width="30" height="10" viewBox="0 0 46 16">
+                <path d="M8,0,6.545,1.455l5.506,5.506H-30V9.039H12.052L6.545,14.545,8,16l8-8Z" transform="translate(30)"></path>
+            </svg>
+        </button>
+    </div>
+</body>
+</html>
