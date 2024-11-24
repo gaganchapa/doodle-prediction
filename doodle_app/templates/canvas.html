@@ -3,59 +3,292 @@
 <head>
     <meta charset="UTF-8">
     <title>Doodle Classifier</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Doto:wght@100..900&family=Edu+AU+VIC+WA+NT+Pre:wght@400..700&family=Host+Grotesk:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Edu AU VIC WA NT Pre', sans-serif;
             background-color: #f4f4f4;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
         }
-        .canvas-container {
+
+        h1 {
+            margin-bottom: 20px;
+            color: #2c3e50;
+            font-size: 2rem;
             text-align: center;
+        }
+
+        .canvas-container {
+            display: flex;
+            gap: 2rem;
             background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            width: 90%;
+            max-width: 1450px;
         }
+
+        .drawing-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
         canvas {
-            border: 2px solid #000;
-            margin-bottom: 15px;
+            border: 3px solid #2c3e50;
+            border-radius: 10px;
+            background: white;
+            width: 100%;
+            height: auto;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
         }
+
+        .button-container {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
         button {
-            background-color: #4CAF50;
+            background-color: #3498db;
             color: white;
             border: none;
-            padding: 10px 20px;
-            margin: 0 10px;
-            border-radius: 5px;
+            padding: 12px 24px;
+            border-radius: 8px;
             cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-        #result {
-            margin-top: 15px;
+            transition: all 0.3s ease;
             font-weight: bold;
+            flex: 1;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
+
+        button:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        #clearButton {
+            background-color: #e74c3c;
+        }
+
+        #clearButton:hover {
+            background-color: #c0392b;
+        }
+
         #loading {
             display: none;
             color: #666;
+            text-align: center;
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .prediction-section {
+            width: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* Enhanced result wrapper with animated border */
+        .result-wrapper {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .result-wrapper::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(
+                from 0deg,
+                #4a90e2,
+                #6aa9e9,
+                #8bc1f0,
+                #add9f7,
+                #d0f0ff,
+                #add9f7,
+                #8bc1f0,
+                #6aa9e9,
+                #4a90e2
+            );
+            animation: rotate 4s linear infinite;
+            z-index: -1;
+        }
+
+        .result-wrapper::after {
+            content: '';
+            position: absolute;
+            inset: 4px;
+            background: white;
+            border-radius: 8px;
+            z-index: -1;
+        }
+
+        #result-text {
+            font-size: 1.1rem;
+            color: #2c3e50;
+            text-align: center;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            border-radius: 8px;
+            background: #f8f9fa;
+            position: relative;
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+
+        @keyframes rotate {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .success-prediction {
+            animation: successPulse 0.5s ease-out;
+        }
+
+        @keyframes successPulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 20px rgba(52, 152, 219, 0.4);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .error-prediction {
+            animation: errorShake 0.5s ease-in-out;
+        }
+
+        @keyframes errorShake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        @keyframes shockwave {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(74, 144, 226, 0.4);
+            }
+            70% {
+                transform: scale(1.02);
+                box-shadow: 0 0 0 20px rgba(74, 144, 226, 0);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(74, 144, 226, 0);
+            }
+        }
+
+        .prediction-animation {
+            animation: shockwave 1.5s ease-out infinite;
+        }
+
+        /* Input styling */
+        .input-wrapper {
+            position: relative;
+            width: 50%;
+            max-width: 300px;
+            padding: 3px;
+            border-radius: 1.7rem;
+            overflow: hidden;
+        }
+
+        .input-wrapper input {
+            background-color: #f5f5f5;
+            border: 2px solid #ddd;
+            padding: 1.2rem 1rem 1.2rem 3rem;
+            font-size: 1.1rem;
+            width: 100%;
+            border-radius: 1.5rem;
+            color: #ff7f7f;
+            box-shadow: 0 0.4rem #dfd9d9, inset 0 0 0 transparent;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            position: relative;
+            z-index: 2;
+        }
+
+        .input-wrapper input:focus {
+            outline: none;
+            border-color: #4a90e2;
+            box-shadow: 0 0.6rem #dfd9d9, 0 0 15px rgba(74, 144, 226, 0.7);
+            transform: translateY(-3px) scale(1.01);
+        }
+
+        .input-wrapper::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(
+                from 0deg,
+                #4a90e2,
+                #6aa9e9,
+                #8bc1f0,
+                #add9f7,
+                #d0f0ff,
+                #add9f7,
+                #8bc1f0,
+                #6aa9e9,
+                #4a90e2
+            );
+            animation: rotate 4s linear infinite;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+        }
+
+        .input-wrapper:hover::before,
+        .input-wrapper:focus-within::before {
+            opacity: 1;
         }
     </style>
 </head>
 <body>
+    <h1 id="objectPrompt"></h1>
     <div class="canvas-container">
-        <canvas id="drawingCanvas" width="500" height="500"></canvas>
-        <div>
-            <button id="predictButton">Predict</button>
-            <button id="clearButton">Clear</button>
+        <div class="drawing-section">
+            <canvas id="drawingCanvas" width="800" height="500"></canvas>
+            <div class="button-container">
+                <button id="predictButton">Predict</button>
+                <button id="clearButton">Clear</button>
+            </div>
         </div>
-        <div id="loading">Predicting...</div>
-        <p id="result"></p>
+        <div class="prediction-section">
+            <div id="loading">Analyzing your masterpiece...</div>
+            <div class="result-wrapper">
+                <div id="result-text">Draw something and click Predict!</div>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -63,22 +296,56 @@
         const ctx = canvas.getContext('2d');
         const predictButton = document.getElementById('predictButton');
         const clearButton = document.getElementById('clearButton');
-        const resultElement = document.getElementById('result');
+        const resultElement = document.getElementById('result-text');
         const loadingElement = document.getElementById('loading');
+        const objectPrompt = document.getElementById('objectPrompt');
         let drawing = false;
 
-        // Prepare canvas background
-        ctx.fillStyle = 'white';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        // Set up canvas scaling
+        function setupCanvas() {
+            const rect = canvas.getBoundingClientRect();
+            canvas.width = rect.width;
+            canvas.height = rect.height;
+            ctx.fillStyle = 'white';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
 
-        // Drawing event listeners
-        canvas.addEventListener('mousedown', startDrawing);
-        canvas.addEventListener('mousemove', draw);
-        canvas.addEventListener('mouseup', stopDrawing);
-        canvas.addEventListener('mouseout', stopDrawing);
+        // Call setupCanvas on load and resize
+        window.addEventListener('load', setupCanvas);
+        window.addEventListener('resize', setupCanvas);
+
+        // Fetch a random object name from the Django backend
+        async function fetchRandomObject() {
+            try {
+                const response = await fetch('/get_random_object/');
+                const data = await response.json();
+                if (data.object) {
+                    objectPrompt.textContent = `Can you Draw ${data.object} ?`;
+                    objectPrompt.dataset.object = data.object;
+                } else {
+                    objectPrompt.textContent = 'Error fetching object prompt';
+                }
+            } catch (error) {
+                objectPrompt.textContent = 'Draw anything you like!';
+            }
+        }
+
+        // Drawing functions
+        function getMousePos(e) {
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = canvas.width / rect.width;
+            const scaleY = canvas.height / rect.height;
+            return {
+                x: (e.clientX - rect.left) * scaleX,
+                y: (e.clientY - rect.top) * scaleY
+            };
+        }
 
         function startDrawing(e) {
             drawing = true;
+            const pos = getMousePos(e);
+            ctx.beginPath();
+            ctx.moveTo(pos.x, pos.y);
             draw(e);
         }
 
@@ -90,31 +357,71 @@
         function draw(e) {
             if (!drawing) return;
 
+            const pos = getMousePos(e);
             ctx.lineWidth = 25;
             ctx.lineCap = 'round';
             ctx.strokeStyle = 'black';
 
-            ctx.lineTo(e.offsetX, e.offsetY);
+            ctx.lineTo(pos.x, pos.y);
             ctx.stroke();
             ctx.beginPath();
-            ctx.moveTo(e.offsetX, e.offsetY);
+            ctx.moveTo(pos.x, pos.y);
         }
+
+        // Touch support
+        function handleTouch(e) {
+            const touch = e.touches[0];
+            const mouseEvent = new MouseEvent('mousemove', {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            });
+            draw(mouseEvent);
+        }
+
+        // Event listeners
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', stopDrawing);
+        canvas.addEventListener('mouseout', stopDrawing);
+
+        // Touch events
+        canvas.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            const touch = e.touches[0];
+            const mouseEvent = new MouseEvent('mousedown', {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            });
+            startDrawing(mouseEvent);
+        });
+
+        canvas.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+            handleTouch(e);
+        });
+
+        canvas.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            stopDrawing();
+        });
 
         // Predict Button Functionality
         predictButton.addEventListener('click', async () => {
             try {
                 resultElement.textContent = '';
                 loadingElement.style.display = 'block';
+                resultElement.parentElement.classList.add('prediction-animation');
                 
                 const dataURL = canvas.toDataURL('image/png');
-                
+                const expectedObject = objectPrompt.dataset.object || '';
+
                 const response = await fetch('/classify_doodle/', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
-                        'X-CSRFToken': '{{ csrf_token }}'
+                        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]')?.value || ''
                     },
-                    body: `image=${encodeURIComponent(dataURL)}`
+                    body: `image=${encodeURIComponent(dataURL)}&expected=${encodeURIComponent(expectedObject)}`
                 });
 
                 if (!response.ok) {
@@ -122,14 +429,25 @@
                 }
 
                 const result = await response.json();
+                resultElement.parentElement.classList.remove('prediction-animation');
                 
-                if (result.class) {
-                    resultElement.textContent = `Prediction: ${result.class} (Confidence: ${(result.confidence * 100).toFixed(2)}%)`;
+                if (result.success) {
+                    resultElement.parentElement.classList.add('success-prediction');
+                    resultElement.textContent = `Success! You correctly drew a ${result.class} with ${(result.confidence * 100).toFixed(2)}% confidence.`;
+                } else if (result.class) {
+                    resultElement.parentElement.classList.add('error-prediction');
+                    resultElement.textContent = `Prediction mismatch. You drew a ${result.class}. Expected: ${expectedObject}.`;
                 } else {
-                    resultElement.textContent = 'Unable to predict';
+                    resultElement.textContent = 'Unable to predict.';
                 }
+
+                setTimeout(() => {
+                    resultElement.parentElement.classList.remove('success-prediction', 'error-prediction');
+                }, 500);
+
             } catch (error) {
                 resultElement.textContent = 'Error in prediction: ' + error.message;
+                resultElement.parentElement.classList.remove('prediction-animation');
             } finally {
                 loadingElement.style.display = 'none';
             }
@@ -140,8 +458,12 @@
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.fillStyle = 'white';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
-            resultElement.textContent = '';
+            resultElement.textContent = 'Draw something and click Predict!';
+            resultElement.parentElement.classList.remove('prediction-animation', 'success-prediction', 'error-prediction');
         });
+
+        // Initialize
+        fetchRandomObject();
     </script>
 </body>
 </html>
