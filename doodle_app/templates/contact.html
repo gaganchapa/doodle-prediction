@@ -1,27 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Doodle Prediction</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Doto:wght@100..900&family=Edu+AU+VIC+WA+NT+Pre:wght@400..700&family=Host+Grotesk:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
-    <meta charset="UTF-8">
-    <title>About Us - Quick, Draw!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
-        body {
-            font-family: 'Edu AU VIC WA NT Pre', sans-serif;
-            background-color: white;
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
 
-        /* Navbar styling */
+        body {
+            font-family: "Edu AU VIC WA NT Pre", sans-serif;
+            color: #333;
+            background-color: #f9f9f9;
+            line-height: 1.6;
+        }
+
         .navbar {
             width: 25%;
             margin: 20px auto;
             background-color: #ffffff;
             padding: 15px;
             border-radius: 30px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 5px 15px rgba(189, 187, 187, 0.5);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -58,87 +68,226 @@
             width: 100%;
         }
 
-        /* About Us Content */
-        .about-container {
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            padding: 4rem 0;
+            align-items: center;
+            min-height: 80vh;
+        }
+
+        .hero-content {
+            padding-right: 2rem;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #2d2d2d, #000);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-content p {
+            color: #666;
+            margin-bottom: 2rem;
+            font-size: 1.3rem;
+            line-height: 1.8;
+        }
+
+        .hero-doodles img {
+            max-width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        /* About Section */
+        .about-section {
+            padding: 6rem 0;
+            background-color: #fff;
+            border-radius: 30px;
+            margin: 2rem 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
             text-align: center;
-            margin: 100px 20px 0 20px;
+            font-weight: 700;
+            position: relative;
         }
 
-        .about-header {
-            font-size: 3rem;
-            color: #333;
-            margin-bottom: 20px;
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: #000;
+            margin: 1rem auto;
+            border-radius: 2px;
         }
 
-        .about-text {
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .about-content img {
+            width: 100%;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-content p {
             font-size: 1.2rem;
             line-height: 1.8;
             color: #555;
-            margin: 0 auto;
-            max-width: 800px;
         }
 
+        /* Team Section */
         .team-section {
-            margin-top: 50px;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            padding: 4rem 0;
         }
 
-        .team-header {
-            font-size: 2rem;
-            color: #333;
-            margin-bottom: 20px;
+        .team-list {
+            padding: 2rem;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
         }
 
-        .team-profiles {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            flex-wrap: wrap;
+        .team-list h2 {
+            font-size: 2.2rem;
+            margin-bottom: 2rem;
+            font-weight: 600;
         }
 
-        .profile-card {
-            background-color: #f9f9f9;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            max-width: 250px;
+        .team-list ul {
+            list-style: none;
         }
 
-        .profile-card img {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            margin-bottom: 15px;
-        }
-
-        .profile-card h3 {
+        .team-list li {
+            margin-bottom: 1.5rem;
             font-size: 1.2rem;
-            margin-bottom: 5px;
-            color: #222;
-        }
-
-        .profile-card p {
-            font-size: 1rem;
             color: #666;
+            padding-left: 1.5rem;
+            position: relative;
         }
 
-        button {
-            background-color: #1d03034e;
-            border: none;
-            padding: 15px 30px;
-            font-size: 25px;
-            border-radius: 8px;
-            cursor: pointer;
-            margin-top: 30px;
+        .team-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: #000;
         }
 
+        .team-feature {
+            background: #000;
+            color: #fff;
+            padding: 3rem;
+            border-radius: 20px;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .team-feature-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #fff;
+            opacity: 0.8;
+            font-weight: 400;
+        }
+
+        .team-feature-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            line-height: 1.2;
+            font-weight: 700;
+        }
+
+        .team-feature-content p {
+            font-size: 1.2rem;
+            color: #fff;
+            opacity: 0.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: #0e0d0d;
+            color: #0a0a0a;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            transition: transform 0.2s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+        }
+
+        .team-feature-image img {
+            width: 105%;
+            height: 126%;
+            border-radius: 10px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .hero-section,
+            .about-content,
+            .team-section,
+            .team-feature {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .hero-content h1 {
+                font-size: 3rem;
+            }
+
+            .hero-doodles {
+                order: -1;
+            }
+
+            .team-feature {
+                padding: 2rem;
+            }
+        }
+        .cta:hover .hover-underline-animation:after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
         button.cta {
             background: none;
+            color: #222121;
         }
-
         .hover-underline-animation {
             position: relative;
-            color: black;
+            color: rgb(9, 9, 9);
             padding-bottom: 5px;
         }
 
@@ -150,66 +299,95 @@
             height: 2px;
             bottom: 0;
             left: 0;
-            background-color: #161010;
+            background-color: #121111;
             transform-origin: bottom right;
             transition: transform 0.25s ease-out;
         }
 
-        .cta:hover .hover-underline-animation:after {
-            transform: scaleX(1);
-            transform-origin: bottom left;
-        }
     </style>
 </head>
 <body>
-    <!-- Navbar -->
     <div class="navbar">
         <ul>
-            <li><a href="{% url 'landing_page' %}">Home</a></li>
+            <li><a href="{url 'landing_page' %}">Home</a></li>
             <li><a href="{% url 'ai' %}">Doodle Detection</a></li>
             <li><a href="{% url 'contact' %}">About Us</a></li>
         </ul>
     </div>
 
-    <!-- About Us Content -->
-    <div class="about-container">
-        <h1 class="about-header">About Us</h1>
-        <p class="about-text">
-            Welcome to *Quick, Draw!* – a platform where technology meets creativity. Our mission is to help people 
-            explore the world of artificial intelligence through interactive and engaging doodling experiences. 
-            Using cutting-edge neural networks, we aim to recognize and bring your sketches to life while 
-            making AI accessible and fun for everyone.
-        </p>
-
-        <!-- Team Section -->
-        <div class="team-section">
-            <h2 class="team-header">Meet the Team</h2>
-            <div class="team-profiles">
-                <div class="profile-card">
-                    <!-- <img src="https://via.placeholder.com/100" alt="Team Member"> -->
-                    <h3>Gagan Dwaz Chapa</h3>
-                    <p>AI Devloper</p>
-                </div>
-                <!-- <div class="profile-card">
-                    <img src="https://via.placeholder.com/100" alt="Team Member">
-                    <h3>John Smith</h3>
-                    <p>Creative Designer</p>
-                </div>
-                <div class="profile-card">
-                    <img src="https://via.placeholder.com/100" alt="Team Member">
-                    <h3>Emily Brown</h3>
-                    <p>Project Manager</p>
-                </div> -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-6 d-flex flex-column align-items-center justify-content-center">
+                <h1 style="padding: 2%; font-weight: 900;">AI Doodle Game</h1>
+                <p style="font-weight: 500; font-size: 125%;">Experience the future of creative expression with our AI-powered doodle game.</p>
+                <!-- <p style="font-weight: 500;">Sketch your imagination, Let AI bring it to life!</p> -->
+                <button class="cta" onclick="window.location.href='{% url 'canvas_page' %}'">
+                    <span class="hover-underline-animation"> Let's Doodle</span>
+                    <svg id="arrow-horizontal" xmlns="http://www.w3.org/2000/svg" width="35" height="10" viewBox="0 0 50 16">
+                        <path d="M8,0,6.545,1.455l5.506,5.506H-30V9.039H12.052L6.545,14.545,8,16l8-8Z" transform="translate(30)"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="col-6 d-flex align-items-center justify-content-end">
+                {% load static %}
+                <img src="{% static 'images/img.png' %}" alt="AI Doodle Gameplay" class="img-fluid">
             </div>
         </div>
-
-        <!-- Call to Action -->
-        <button class="cta" onclick="window.location.href='{% url 'canvas_page' %}'">
-            <span class="hover-underline-animation"> Start Doodling</span>
-            <svg id="arrow-horizontal" xmlns="http://www.w3.org/2000/svg" width="30" height="10" viewBox="0 0 46 16">
-                <path d="M8,0,6.545,1.455l5.506,5.506H-30V9.039H12.052L6.545,14.545,8,16l8-8Z" transform="translate(30)"></path>
-            </svg>
-        </button>
     </div>
+
+    <!-- About Section -->
+    <div class="container-fluid">
+        <section class="about-section">
+            <h2 class="section-title">About Us</h2>
+            <div class="about-content">
+                <div class="col-35 d-flex align-items-center justify-content-end">
+                {% load static %}
+                <img src="{% static 'images/mine.png' %}" alt="About AI Doodle" class="img-fluid">
+                </div>
+                <p style="font-size:large; font-weight: 500;">AI Doodle is a revolutionary platform that combines creative expression with artificial intelligence. Whether you’re an artist, a hobbyist, or just someone who loves to experiment. With intuitive tools and seamless integration, animations with just a few clicks. Our innovative technology understands and interprets your drawings in real-time, creating an engaging and interactive experience that bridges the gap between human creativity and machine learning.</p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Team Section -->
+    <section class="team-section">
+        <div class="team-list">
+            <!-- <h2>jhvfjfre</h2> -->
+                <h2 style="text-align: left;">Built By</h2>
+                <div class="team-member d-flex" style="margin-top: 2rem; align-items: center;">
+                    <div class="member-image">
+                        {% load static %}
+                        <img src="{% static 'images/som.png' %}" alt="John Doe" style="width:180px; height:170px; border-radius:50%;"/>
+                    </div>
+                    <div class="member-info" style="margin-left: 20px;">
+                        <h3>Gagan Dwaz Chapa</h3>
+                        <p><strong>Studying: </strong>  CSE-AI at Amrita University</p>
+                        <p><strong>Achievements:</strong></p>
+                        <ul style="list-style-type: none; padding: 0; margin: 0;">
+                            <li>🏅 First Place at Youth Ideation Challenge 2023</li>
+                            <li>🥈 Second Place at CMRIT National Social Hackathon 2024</li>
+                            <li>🥉 Fifth Place in Image Matching Challenge 2024</li>
+                        </ul>
+                    </div>
+                </div>
+             
+        </div>
+
+        <div class="team-feature">
+            <div class="team-feature-content">
+                <h3>JOIN OUR TEAM</h3>
+                <h2>Create the Future of AI Gaming</h2>
+                <p>We're looking for passionate individuals who want to shape the future of interactive AI experiences.</p>
+                <p>Full-time positions available worldwide</p>
+                <p>Flexible remote work options</p>
+                <p>Competitive compensation package</p>
+                <a href="#join" class="cta-button">Join Us →</a>
+            </div>
+            <div class="team-feature-image">
+                {% load static %}
+                <img src="{% static 'images/ski.jpg' %}" alt="Join Our Team">
+            </div>
+        </div>
+    </section>
 </body>
 </html>
