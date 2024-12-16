@@ -10,13 +10,10 @@
         body {
             font-family: 'Edu AU VIC WA NT Pre', sans-serif;
             background-color: white;
-            margin: 0;
-            padding: 0;
         }
 
-        /* Notch-like Navbar */
         .navbar {
-            width: 25%; /* Reduced width for the notch effect */
+            width: 24%; 
             margin: 20px auto;
             background-color: #ffffff;
             padding: 15px;
@@ -38,9 +35,8 @@
 
         .navbar ul li {
             font-size: 1.2rem;
-            padding: 0 15px;
+            padding: 0 0px;
             position: relative;
-            cursor: pointer;
         }
 
         .navbar ul li::after {
@@ -58,7 +54,6 @@
             width: 100%;
         }
 
-        /* Main Content Container */
         .main-container {
             margin-top: 100px;
             display: flex;
@@ -66,11 +61,10 @@
             align-items: center;
         }
 
-        /* Image Styling with Spacing */
         .container {
             position: relative;
             text-align: center;
-            margin-top: 20px; /* Space between image and navbar */
+            margin-top: 20px; 
         }
 
         .image {
@@ -143,7 +137,6 @@
     </style>
 </head>
 <body>
-    <!-- Rounded Notch-like Navigation Bar -->
     <div class="navbar">
       <ul>
           <li><a href="{% url 'landing_page' %}">Home</a></li>
@@ -152,7 +145,6 @@
       </ul>
     </div>
 
-    <!-- Main Content -->
     <div class="main-container">
         <div class="container">
             <img src="https://www.digitaltechnologieshub.edu.au/media/a3in5iyt/quick-draw.jpg?anchor=center&mode=crop&width=480&height=301&rnd=132648558635800000" alt="Quick Draw" class="image">
