@@ -86,7 +86,8 @@
             position: relative;
         }
 
-        .section-title::after {
+        /* for that line */
+        .section-title::after { 
             content: '';
             display: block;
             width: 60px;
@@ -98,7 +99,7 @@
 
         .about-content {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: auto auto;
             gap: 4rem;
             align-items: center;
             max-width: 1000px;
@@ -152,10 +153,9 @@
         }
 
         .team-list li::before {
-            content: '→';
+            content: '👉';
             position: absolute;
             left: 0;
-            color: #000;
         }
 
         .team-feature {
@@ -191,7 +191,7 @@
             margin-bottom: 1.5rem;
         }
 
-        .cta-button {
+        .some-button {
             display: inline-block;
             padding: 1rem 2.5rem;
             border: none;
@@ -205,7 +205,7 @@
             transition: transform 0.2s ease;
         }
 
-        .cta-button:hover {
+        .some-button:hover {
             transform: translateY(-2px);
         }
 
@@ -213,15 +213,14 @@
             width: 105%;
             height: 126%;
             border-radius: 10px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
         }
 
         
-        .cta:hover .hover-underline-animation:after {
+        .some:hover .hover-underline-animation:after {
             transform: scaleX(1);
             transform-origin: bottom left;
         }
-        button.cta {
+        button.some {
             background: none;
             color: #222121;
         }
@@ -261,7 +260,7 @@
                 <h1 style="padding: 2%; font-weight: 900;">AI Doodle Game</h1>
                 <p style="font-weight: 500; font-size: 120%;">Experience the future of creative expression with our AI-powered Doodle Game! </p>
                 <!-- <p style="font-weight: 500;">Sketch your imagination, Let AI bring it to life!</p> -->
-                <button class="cta" onclick="window.location.href='{% url 'canvas_page' %}'">
+                <button class="some" onclick="window.location.href='{% url 'canvas_page' %}'">
                     <span class="hover-underline-animation"> Let's Doodle</span>
                     <svg id="arrow-horizontal" xmlns="http://www.w3.org/2000/svg" width="35" height="10" viewBox="0 0 50 16">
                         <path d="M8,0,6.545,1.455l5.506,5.506H-30V9.039H12.052L6.545,14.545,8,16l8-8Z" transform="translate(30)"></path>
@@ -281,7 +280,7 @@
             <div class="about-content">
                 <div class="col-35 d-flex align-items-center justify-content-end">
                 {% load static %}
-                <img src="{% static 'images/mine.png' %}" alt="About AI Doodle" class="img-fluid">
+                <img src="{% static 'images/mine.png' %}" alt="About AI Doodle" class="img-fluid" style="height: 420px; width: 455px; max-width: none;">
                 </div>
                 <p style="font-size:large; font-weight: 500;">As part of FSD End Semester Project, guided by <a href="https://www.linkedin.com/in/shalu-murali-05b31625?originalSubdomain=in">Shalu Murali Sir</a>, AI Doodle is a revolutionary platform that combines creative expression with artificial intelligence. Whether you’re an artist, a hobbyist, or just someone who loves to experiment. With intuitive tools and seamless integration, animations with just a few clicks. Our innovative technology understands and interprets your drawings in real-time, creating an engaging and interactive experience that bridges the gap between human creativity and machine learning. </p>
             </div>

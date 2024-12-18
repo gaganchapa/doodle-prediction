@@ -59,7 +59,7 @@
         }
 
         button {
-            background-color: #3498db;
+            background-color: #19191a;
             color: white;
             border: none;
             padding: 12px 24px;
@@ -73,22 +73,22 @@
         }
 
         button:hover {
-            background-color: #2980b9;
+            background-color: black;
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
 
         #clearButton {
-            background-color: #e74c3c;
+            background-color: #433938;
         }
 
         #clearButton:hover {
-            background-color: #c0392b;
+            background-color: #433938;
         }
 
         #loading {
             display: none;
-            color: #666;
+            color: #141313;
             text-align: center;
             font-style: italic;
             margin-bottom: 1rem;
@@ -120,15 +120,15 @@
             height: 200%;
             background: conic-gradient(
                 from 0deg,
-                #4a90e2,
-                #6aa9e9,
-                #8bc1f0,
-                #add9f7,
-                #d0f0ff,
-                #add9f7,
-                #8bc1f0,
-                #6aa9e9,
-                #4a90e2
+                #111111,
+                #405555,
+                #3e3f41,
+                #141414,
+                #161717,
+                #31313d,
+                #111212,
+                #181c20,
+                #19191a
             );
             animation: rotate 4s linear infinite;
             z-index: -1;
@@ -165,8 +165,20 @@
             }
         }
 
-        .success-prediction {
+        .success-prediction::before{
             animation: successPulse 0.5s ease-out;
+            background: conic-gradient(
+                from 0deg,
+                #908484,
+                #908484,
+                #908484,
+                #908484,
+                #908484,
+                #908484,
+                #908484,
+                #908484,
+                #908484
+            );
         }
 
         @keyframes successPulse {
@@ -175,7 +187,7 @@
             }
             50% {
                 transform: scale(1.05);
-                box-shadow: 0 0 20px rgba(52, 152, 219, 0.4);
+                box-shadow: 0 0 20px rgba(20, 21, 21, 0.4);
             }
             100% {
                 transform: scale(1);
@@ -184,31 +196,29 @@
 
         .error-prediction {
             animation: errorShake 0.5s ease-in-out;
+            background: conic-gradient(
+                from 0deg,
+                #908484,
+                #908484,
+                #908484,
+                #908484,
+                #908484,
+                #908484,
+                #908484,
+                #908484,
+                #908484
+            );
         }
 
         @keyframes errorShake {
-            0%, 100% { transform: translateX(0); }
+            0%, 100% { transform: translateX(-5px); }
             25% { transform: translateX(-10px); }
             75% { transform: translateX(10px); }
         }
 
-        @keyframes shockwave {
-            0% {
-                transform: scale(1);
-                box-shadow: 0 0 0 0 rgba(74, 144, 226, 0.4);
-            }
-            70% {
-                transform: scale(1.02);
-                box-shadow: 0 0 0 20px rgba(74, 144, 226, 0);
-            }
-            100% {
-                transform: scale(1);
-                box-shadow: 0 0 0 0 rgba(74, 144, 226, 0);
-            }
-        }
 
         .prediction-animation {
-            animation: shockwave 1.5s ease-out infinite;
+            animation: successPulse 1.5s ease-out infinite;
         }
 
         /* Input styling */
@@ -301,7 +311,10 @@
         const objectPrompt = document.getElementById('objectPrompt');
         let drawing = false;
 
-        // Set up canvas scaling
+
+// =================== fhvbhfbvhjdfbvbh============================================================================
+
+
         function setupCanvas() {
             const rect = canvas.getBoundingClientRect();
             canvas.width = rect.width;
@@ -310,11 +323,9 @@
             ctx.fillRect(0, 0, canvas.width, canvas.height);
         }
 
-        // Call setupCanvas on load and resize
         window.addEventListener('load', setupCanvas);
         window.addEventListener('resize', setupCanvas);
 
-        // Fetch a random object name from the Django backend
         async function fetchRandomObject() {
             try {
                 const response = await fetch('/get_random_object/');
@@ -330,7 +341,6 @@
             }
         }
 
-        // Drawing functions
         function getMousePos(e) {
             const rect = canvas.getBoundingClientRect();
             const scaleX = canvas.width / rect.width;
@@ -368,7 +378,6 @@
             ctx.moveTo(pos.x, pos.y);
         }
 
-        // Touch support
         function handleTouch(e) {
             const touch = e.touches[0];
             const mouseEvent = new MouseEvent('mousemove', {
@@ -378,13 +387,15 @@
             draw(mouseEvent);
         }
 
-        // Event listeners
+
+// =======================================kjfvn=========================================================================
+
+        
         canvas.addEventListener('mousedown', startDrawing);
         canvas.addEventListener('mousemove', draw);
         canvas.addEventListener('mouseup', stopDrawing);
         canvas.addEventListener('mouseout', stopDrawing);
 
-        // Touch events
         canvas.addEventListener('touchstart', (e) => {
             e.preventDefault();
             const touch = e.touches[0];
@@ -405,7 +416,9 @@
             stopDrawing();
         });
 
-        // Predict Button Functionality
+
+        // =========================================kjn==============================================================
+
         predictButton.addEventListener('click', async () => {
             try {
                 resultElement.textContent = '';
