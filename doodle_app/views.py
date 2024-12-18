@@ -6,22 +6,6 @@ from django.views.decorators.csrf import csrf_exempt
 import base64
 from PIL import Image
 from io import BytesIO
-
-def landing_page(request):
-    return render(request, 'landing.html')
-
-def canvas_page(request):
-    return render(request, 'canvas.html')
-
-def contact(request):
-    return render(request, 'contact.html')
-
-def ai(request):
-    return render(request, 'ai.html')
-
-
-
-
 model_path = 'model50.keras'
 
 model = tf.keras.models.load_model(model_path)
@@ -45,6 +29,23 @@ class_names = ['airplane',
  'umbrella']
 WIDTH, HEIGHT = 28, 28
 
+def landing_page(request):
+    return render(request, 'landing.html')
+
+def canvas_page(request):
+    return render(request, 'canvas.html')
+
+def contact(request):
+    return render(request, 'contact.html')
+
+def ai(request):
+    return render(request, 'ai.html')
+
+
+
+
+
+
 def preprocess_image(img):
     # Convert the image to grayscale
     img = img.convert('L')  # 'L' mode ensures grayscale
@@ -62,6 +63,14 @@ def preprocess_image(img):
     img_array = img_array.reshape((1, HEIGHT, WIDTH, 1))
     return img_array
 
+
+
+import random
+from django.http import JsonResponse
+
+def get_random_object(request):
+    random_object = random.choice(class_names)
+    return JsonResponse({'object': random_object})
 @csrf_exempt
 def classify_doodle(request):
     if request.method == 'POST':
@@ -106,12 +115,6 @@ def classify_doodle(request):
 
 
 
-import random
-from django.http import JsonResponse
-
-def get_random_object(request):
-    random_object = random.choice(class_names)
-    return JsonResponse({'object': random_object})
 
 
 
